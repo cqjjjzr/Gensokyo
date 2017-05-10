@@ -1,21 +1,51 @@
 package charlie.gensokyo
 
+import javax.swing.JPanel
+
 fun main(args: Array<String>) {
     systemLookAndFeel()
     frame (title = "Test", show = true) {
-        // size { width = 500; height = 500 }
         size(500, 500)
-        abstractLayout
         exitOnClose
 
-        button("Hello!") {
-            // size { width = 100; height = 100 }
-            size(100, 100)
-            // location { x = 50; y = 30 }
-            location(50, 30)
-            listenAction { _ ->
-                println("click!")
-                hide
+        gridLayout {
+            row {
+                button("Hello!") {
+                    listenAction { _ ->
+                        println("click!")
+                        hide
+                    }
+                }
+                // gap
+            }
+            row {
+                button("Another Hello!") {
+                    listenAction { _ ->
+                        println("another click!")
+                        hide
+                    }
+                }
+                // gap
+            }
+            row {
+                JPanel().apply {
+                    gridLayout {
+                        row {
+                            button("Oh Boy♂Next♂Door!") {
+                                listenAction { _ ->
+                                    println("Ahh fuck you")
+                                    hide
+                                }
+                            }
+                            button("change the boss of the gym!") {
+                                listenAction { _ ->
+                                    println("Ahh FA♂Q")
+                                    hide
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

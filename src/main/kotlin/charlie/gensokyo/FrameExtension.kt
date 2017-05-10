@@ -10,8 +10,6 @@ fun Frame.titleWithI18n(titleKey: String) {
     title = I18nManager.getString(titleKey)
 }
 
-val Container.abstractLayout: Unit get() { layout = null }
-
 fun Container.button(text: String = "",
            jButton: JButton = JButton(),
            constraints: Any? = null,

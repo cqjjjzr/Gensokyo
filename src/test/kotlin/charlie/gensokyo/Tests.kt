@@ -1,7 +1,5 @@
 package charlie.gensokyo
 
-import javax.swing.JPanel
-
 fun main(args: Array<String>) {
     systemLookAndFeel()
     frame (title = "Test", show = true) {
@@ -28,7 +26,7 @@ fun main(args: Array<String>) {
                 // gap
             }
             row {
-                JPanel().apply {
+                container {
                     gridLayout {
                         row {
                             button("Oh Boy♂Next♂Door!") {

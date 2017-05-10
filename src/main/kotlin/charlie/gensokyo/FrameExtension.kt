@@ -2,8 +2,7 @@ package charlie.gensokyo
 
 import java.awt.Container
 import java.awt.Frame
-import javax.swing.JButton
-import javax.swing.JFrame
+import javax.swing.*
 import javax.swing.WindowConstants.*
 
 fun Frame.titleWithI18n(titleKey: String) {
@@ -15,8 +14,27 @@ fun Container.button(text: String = "",
            constraints: Any? = null,
            index: Int = -1,
            init: JButton.() -> Unit): JButton {
-    return createButton(text, jButton, init).apply { this@button.add(this, constraints, index) }
+    return createButton(text, jButton, init).apply {
+        this@button.beforeAddingComponent(this)
+        this@button.add(this, constraints, index)
+        this@button.afterAddingComponent(this)
+    }
 }
+
+fun Container.container(constraints: Any? = null,
+                        index: Int = -1,
+                        init: JComponent.() -> Unit) {
+    JLabel().apply {
+        this@container.beforeAddingComponent(this)
+        init()
+        this@container.add(this, constraints, index)
+        this@container.afterAddingComponent(this)
+    }
+}
+
+internal fun Container.beforeAddingComponent(comp: JComponent) {  }
+
+internal fun Container.afterAddingComponent(comp: JComponent) {  }
 
 val JFrame.exitOnClose: Unit get() {
     defaultCloseOperation = EXIT_ON_CLOSE

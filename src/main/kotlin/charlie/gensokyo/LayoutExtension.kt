@@ -8,22 +8,21 @@ import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.JLabel
 
-val Container.abstractLayout: Unit get() { layout = null }
-val JFrame.abstractLayout: Unit get() { contentPane.layout = null }
+inline val Container.abstractLayout: Unit get() { layout = null }
+inline val JFrame.abstractLayout: Unit get() = contentPane.abstractLayout
 
-fun Container.gridLayout(block: GridLayoutHelper.() -> Unit) {
+inline val Container.borderLayout: Unit get() { layout = BorderLayout() }
+inline val JFrame.borderLayout: Unit get() = contentPane.abstractLayout
+
+inline fun Container.gridLayout(block: GridLayoutHelper.() -> Unit) {
     layout = BorderLayout()
     removeAll()
     add(GridLayoutHelper().apply(block))
 }
 
-fun JFrame.gridLayout(block: GridLayoutHelper.() -> Unit) {
-    contentPane.layout = BorderLayout()
-    contentPane.removeAll()
-    contentPane.add(GridLayoutHelper().apply(block))
-}
+inline fun JFrame.gridLayout(block: GridLayoutHelper.() -> Unit) = contentPane.gridLayout(block)
 
-class GridLayoutHelper: JLabel() {
+class GridLayoutHelper: JComponent() {
     private var rowIndex = -1
     private var columnIndex = 0
     private var firstRowInserted = false
@@ -53,7 +52,7 @@ class GridLayoutHelper: JLabel() {
         }
     }
 
-    private fun beforeAddingComponent(comp: JComponent) { ensureColumns() }
+    private fun beforeAddingComponent(comp: JComponent) = ensureColumns()
 
     init {
         layout = GridLayout()

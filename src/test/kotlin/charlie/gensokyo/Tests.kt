@@ -1,15 +1,42 @@
 package charlie.gensokyo
 
+import kotlin.system.exitProcess
+
 fun main(args: Array<String>) {
     systemLookAndFeel()
     frame (title = "Test", show = true) {
         size(500, 500)
         exitOnClose
 
+        menuBar {
+            subMenu("File") {
+                item("Open") {
+                    listenAction {
+                        println("BOOM!")
+                    }
+                }
+                separator
+                subMenu("Recent") {
+                    item("nanimo arimasen") {
+                        listenAction {
+                            println("SHIT!")
+                        }
+                    }
+                }
+                separator
+                item("Exit") {
+                    listenAction {
+                        println("NOPE! SHIT!")
+                        exitProcess(0)
+                    }
+                }
+            }
+        }
+
         gridLayout {
             row {
                 button("Hello!") {
-                    listenAction { _ ->
+                    listenAction {
                         println("click!")
                         hide
                     }
@@ -18,7 +45,7 @@ fun main(args: Array<String>) {
             }
             row {
                 button("Another Hello!") {
-                    listenAction { _ ->
+                    listenAction {
                         println("another click!")
                         hide
                     }
@@ -30,15 +57,16 @@ fun main(args: Array<String>) {
                     gridLayout {
                         row {
                             button("Oh Boy♂Next♂Door!") {
-                                listenAction { _ ->
+                                listenAction{
                                     println("Ahh fuck you")
                                     hide
                                 }
                             }
                             button("change the boss of the gym!") {
-                                listenAction { _ ->
-                                    println("Ahh FA♂Q")
+                                listenActionWithEvent { source, _, _, _ ->
+                                    println("Ahh FA♂Q $source")
                                     hide
+                                    this@frame.hide
                                 }
                             }
                         }

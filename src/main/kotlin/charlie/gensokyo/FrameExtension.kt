@@ -2,7 +2,10 @@ package charlie.gensokyo
 
 import java.awt.Container
 import java.awt.Frame
-import javax.swing.*
+import javax.swing.JButton
+import javax.swing.JComponent
+import javax.swing.JFrame
+import javax.swing.JLabel
 import javax.swing.WindowConstants.*
 
 fun Frame.titleWithI18n(titleKey: String) {
@@ -32,8 +35,10 @@ fun Container.container(constraints: Any? = null,
     }
 }
 
+@Suppress("unused")
 internal fun Container.beforeAddingComponent(comp: JComponent) {  }
 
+@Suppress("unused")
 internal fun Container.afterAddingComponent(comp: JComponent) {  }
 
 val JFrame.exitOnClose: Unit get() {

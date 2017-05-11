@@ -17,6 +17,9 @@ object I18nManager {
             (support ?: throw I18nNotSupportedException()).getStringFormatted(key, *parameters)
 }
 
+fun i18n(key: String) = I18nManager::getString
+fun i18nFormat(key: String, vararg parameters: Array<String>) = I18nManager::getStringFormatted
+
 class I18nNotSupportedException : Exception {
     constructor() : super()
     constructor(message: String?) : super(message)

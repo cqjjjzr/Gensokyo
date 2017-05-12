@@ -31,6 +31,7 @@ fun main(args: Array<String>) {
                                         .apply {
                                             forEachLine { uiThreadAsync { updateArea.append("$it\n") } }
                                         }
+                                uiThread { plainMessageBox("Oh♂I'm♂Done") }
                             }
                         }
                     }

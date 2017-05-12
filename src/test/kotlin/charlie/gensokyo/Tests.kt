@@ -1,9 +1,12 @@
 package charlie.gensokyo
 
+import java.net.URL
+import javax.swing.JTextArea
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     systemLookAndFeel()
+    val updateArea = JTextArea()
     frame (title = "Test", show = true) {
         size(500, 500)
         exitOnClose
@@ -20,6 +23,15 @@ fun main(args: Array<String>) {
                     item("nanimo arimasen") {
                         listenAction {
                             println("SHIT!")
+                            doAsync(isDaemon = true) {
+                                URL("http://ice1000.org/2017/05/11/KotlinDSL2/#javafx-dsl")
+                                        .openConnection()
+                                        .getInputStream()
+                                        .reader()
+                                        .apply {
+                                            forEachLine { uiThreadAsync { updateArea.append("$it\n") } }
+                                        }
+                            }
                         }
                     }
                 }
@@ -72,6 +84,10 @@ fun main(args: Array<String>) {
                         }
                     }
                 }
+            }
+
+            row {
+                scroll(textArea("Hahahahaha", updateArea))
             }
         }
     }

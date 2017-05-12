@@ -2,7 +2,6 @@ package charlie.gensokyo
 
 import java.awt.Container
 import java.awt.Frame
-import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JFrame
 import javax.swing.JLabel
@@ -10,18 +9,6 @@ import javax.swing.WindowConstants.*
 
 fun Frame.titleWithI18n(titleKey: String) {
     title = I18nManager.getString(titleKey)
-}
-
-fun Container.button(text: String = "",
-           jButton: JButton = JButton(),
-           constraints: Any? = null,
-           index: Int = -1,
-           init: JButton.() -> Unit): JButton {
-    return createButton(text, jButton, init).apply {
-        this@button.beforeAddingComponent(this)
-        this@button.add(this, constraints, index)
-        this@button.afterAddingComponent(this)
-    }
 }
 
 fun Container.container(constraints: Any? = null,

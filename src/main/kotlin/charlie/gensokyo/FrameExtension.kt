@@ -14,11 +14,11 @@ fun Frame.titleWithI18n(titleKey: String) {
 fun Container.container(constraints: Any? = null,
                         index: Int = -1,
                         init: JComponent.() -> Unit) {
-    JLabel().apply {
-        this@container.beforeAddingComponent(this)
-        init()
-        this@container.add(this, constraints, index)
-        this@container.afterAddingComponent(this)
+    JLabel().let {
+        this.beforeAddingComponent(it)
+        it.init()
+        this.add(it, constraints, index)
+        this.afterAddingComponent(it)
     }
 }
 

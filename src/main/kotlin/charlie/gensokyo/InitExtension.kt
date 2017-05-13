@@ -28,10 +28,11 @@ fun Container.button(text: String = "",
                      constraints: Any? = null,
                      index: Int = -1,
                      init: JButton.() -> Unit): JButton {
-    return createButton(text, jButton, init).apply {
-        this@button.beforeAddingComponent(this)
-        this@button.add(this, constraints, index)
-        this@button.afterAddingComponent(this)
+    return createButton(text, jButton, init).let {
+        beforeAddingComponent(it)
+        add(it, constraints, index)
+        afterAddingComponent(it)
+        it
     }
 }
 
@@ -49,10 +50,11 @@ fun Container.label(text: String = "",
                     constraints: Any? = null,
                     index: Int = -1,
                     init: JLabel.() -> Unit = {}): JLabel {
-    return createLabel(text, jLabel, init).apply {
-        this@label.beforeAddingComponent(this)
-        this@label.add(this, constraints, index)
-        this@label.afterAddingComponent(this)
+    return createLabel(text, jLabel, init).let {
+        beforeAddingComponent(it)
+        add(it, constraints, index)
+        afterAddingComponent(it)
+        it
     }
 }
 
@@ -70,10 +72,11 @@ fun Container.textArea(text: String = "",
                        constraints: Any? = null,
                        index: Int = -1,
                        init: JTextArea.() -> Unit = {}): JTextArea {
-    return createTextArea(text, jTextArea, init).apply {
-        this@textArea.beforeAddingComponent(this)
-        this@textArea.add(this, constraints, index)
-        this@textArea.afterAddingComponent(this)
+    return createTextArea(text, jTextArea, init).let {
+        beforeAddingComponent(it)
+        add(it, constraints, index)
+        afterAddingComponent(it)
+        it
     }
 }
 
@@ -82,11 +85,12 @@ fun Container.scroll(jComponent: JComponent,
                      constraints: Any? = null,
                      index: Int = -1,
                      init: JScrollPane.() -> Unit = {}): JScrollPane {
-    return jScrollPane.apply {
-        init()
+    return jScrollPane.let {
+        it.init()
         jScrollPane.setViewportView(jComponent)
-        this@scroll.beforeAddingComponent(this)
-        this@scroll.add(this, constraints, index)
-        this@scroll.afterAddingComponent(this)
+        beforeAddingComponent(it)
+        add(it, constraints, index)
+        afterAddingComponent(it)
+        it
     }
 }

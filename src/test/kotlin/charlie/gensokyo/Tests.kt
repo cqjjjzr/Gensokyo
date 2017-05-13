@@ -6,8 +6,7 @@ import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     systemLookAndFeel()
-    val updateArea = JTextArea()
-    frame (title = "Test", show = true) {
+    frame(title = "Test", show = true) {
         size(500, 500)
         exitOnClose
 
@@ -24,14 +23,25 @@ fun main(args: Array<String>) {
                         listenAction {
                             println("SHIT!")
                             doAsync(isDaemon = true) {
-                                URL("http://ice1000.org/2017/05/11/KotlinDSL2/#javafx-dsl")
+                                URL(plainInputBox("Input a URL", initialValue = "http://ice1000.org/categories/#Kotlin"))
                                         .openConnection()
                                         .getInputStream()
                                         .reader()
                                         .apply {
-                                            forEachLine { uiThreadAsync { updateArea.append("$it\n") } }
+                                            forEachLine {
+                                                uiThreadAsync {
+                                                    (this@frame.componentFromID("contentTextArea") as JTextArea)
+                                                            .append("$it\n")
+                                                }
+                                            }
                                         }
-                                uiThread { plainMessageBox("Oh♂I'm♂Done") }
+                                uiThread {
+                                    plainMessageBox("Oh♂I'm♂Done", "I Like It")
+                                    yesNoBox("Clear box?", "Ahh♂Fuck") {
+                                        yesButton { (this@frame.componentFromID("contentTextArea") as JTextArea).text = "" }
+                                        noButton { plainMessageBox("Ahh♂Fuck♂You!") }
+                                    }
+                                }
                             }
                         }
                     }
@@ -70,7 +80,7 @@ fun main(args: Array<String>) {
                     gridLayout {
                         row {
                             button("Oh Boy♂Next♂Door!") {
-                                listenAction{
+                                listenAction {
                                     println("Ahh fuck you")
                                     hide
                                 }
@@ -88,7 +98,9 @@ fun main(args: Array<String>) {
             }
 
             row {
-                scroll(textArea("Hahahahaha", updateArea))
+                scroll(textArea("Hahahahaha") {
+                    assignID("contentTextArea")
+                })
             }
         }
     }

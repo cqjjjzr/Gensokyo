@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import javax.swing.SwingUtilities
@@ -10,22 +13,22 @@ fun doAsync(threadName: String = "AsyncThread-" + System.currentTimeMillis(),
     thread(name = threadName, isDaemon = isDaemon, block = block)
 }
 
-fun uiThread(block: () -> Unit) {
+inline fun uiThread(crossinline block: () -> Unit) {
     SwingUtilities.invokeAndWait { block() }
 }
 
-fun uiThreadAsync(block: () -> Unit) {
+inline fun uiThreadAsync(crossinline block: () -> Unit) {
     SwingUtilities.invokeLater { block() }
 }
 
-fun <T, V> doAsyncWorker(block: () -> T,
-                         blockUIThreadProcess: (V) -> Unit = {},
-                         blockDone: (T) -> Unit = {},
-                         blockDoneCancelled: () -> Unit = {}) {
+inline fun <T, V> doAsyncWorker(crossinline block: () -> T,
+                                crossinline blockUIThreadProcess: (V) -> Unit = {},
+                                crossinline blockDone: (T) -> Unit = {},
+                                crossinline blockDoneCancelled: () -> Unit = {}) {
     object : SwingWorker<T, V>() {
         override fun doInBackground(): T = block()
 
-        override fun process(chunks: MutableList<V>?) = chunks?.forEach(blockUIThreadProcess)!!
+        override fun process(chunks: MutableList<V>) = chunks.forEach(blockUIThreadProcess)
 
         override fun done() {
             if (isCancelled) blockDoneCancelled()
@@ -34,11 +37,11 @@ fun <T, V> doAsyncWorker(block: () -> T,
     }.execute()
 }
 
-fun <T> doAsyncWorkerNoReturn(block: () -> Unit,
-                              blockUIThreadProcess: (T) -> Unit = {}) {
+inline fun <T> doAsyncWorkerNoReturn(crossinline block: () -> Unit,
+                                     crossinline blockUIThreadProcess: (T) -> Unit = {}) {
     object : SwingWorker<Unit, T>() {
         override fun doInBackground() = block()
 
-        override fun process(chunks: MutableList<T>?) = chunks?.forEach(blockUIThreadProcess)!!
+        override fun process(chunks: MutableList<T>) = chunks.forEach(blockUIThreadProcess)
     }.execute()
 }

@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import java.awt.Component
@@ -40,14 +43,16 @@ operator fun JComponent.contains(key: Any) = getClientProperty(key) != null
 operator fun JComponent.get(key: Any) = getClientProperty(key) ?: ""
 operator fun JComponent.set(key: Any, value: Any) = putClientProperty(key, value)
 
+const val gensokyoId = "Gensokyo.CompID"
+
 fun JComponent.assignID(ID: String) {
-    this["gensokyo.compID"] = ID
+    this[gensokyoId] = ID
 }
 
 fun Container.componentFromID(ID: String): JComponent {
     fun findInContainer(container: Container): JComponent? {
         container.components.forEach {
-            if (it is JComponent && it["gensokyo.compID"] == ID) return it
+            if (it is JComponent && it[gensokyoId] == ID) return it
             if (it is Container) findInContainer(it).apply {
                 if (this != null) return this
             }

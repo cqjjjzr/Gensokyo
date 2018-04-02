@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import java.awt.Container
@@ -11,22 +14,14 @@ fun Frame.titleWithI18n(titleKey: String) {
     title = I18nManager.getString(titleKey)
 }
 
-fun Container.container(constraints: Any? = null,
-                        index: Int = -1,
-                        init: JComponent.() -> Unit) {
+inline fun Container.container(constraints: Any? = null,
+                               index: Int = -1,
+                               init: JComponent.() -> Unit) {
     JLabel().let {
-        this.beforeAddingComponent(it)
         it.init()
-        this.add(it, constraints, index)
-        this.afterAddingComponent(it)
+        add(it, constraints, index)
     }
 }
-
-@Suppress("unused")
-internal fun Container.beforeAddingComponent(comp: JComponent) {  }
-
-@Suppress("unused")
-internal fun Container.afterAddingComponent(comp: JComponent) {  }
 
 val JFrame.exitOnClose: Unit get() {
     defaultCloseOperation = EXIT_ON_CLOSE

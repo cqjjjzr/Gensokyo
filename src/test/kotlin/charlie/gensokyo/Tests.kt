@@ -5,7 +5,7 @@ import javax.swing.JTextArea
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    systemLookAndFeel()
+    useSystemLookAndFeel()
     frame(title = "Test", show = true) {
         size(500, 500)
         exitOnClose
@@ -13,26 +13,24 @@ fun main(args: Array<String>) {
         menuBar {
             subMenu("File") {
                 item("Open") {
-                    listenAction {
+                    onAction {
                         println("BOOM!")
                     }
                 }
                 separator
                 subMenu("Recent") {
                     item("nanimo arimasen") {
-                        listenAction {
+                        onAction {
                             println("SHIT!")
                             doAsync(isDaemon = true) {
                                 URL(plainInputBox("Input a URL", initialValue = "http://ice1000.org/categories/#Kotlin"))
                                         .openConnection()
                                         .getInputStream()
                                         .reader()
-                                        .apply {
-                                            forEachLine {
-                                                uiThreadAsync {
-                                                    (this@frame.componentFromID("contentTextArea") as JTextArea)
-                                                            .append("$it\n")
-                                                }
+                                        .forEachLine {
+                                            uiThreadAsync {
+                                                (this@frame.componentFromID("contentTextArea") as JTextArea)
+                                                        .append("$it\n")
                                             }
                                         }
                                 uiThread {
@@ -48,7 +46,7 @@ fun main(args: Array<String>) {
                 }
                 separator
                 item("Exit") {
-                    listenAction {
+                    onAction {
                         println("NOPE! SHIT!")
                         exitProcess(0)
                     }
@@ -59,7 +57,7 @@ fun main(args: Array<String>) {
         gridLayout {
             row {
                 button("Hello!") {
-                    listenAction {
+                    onAction {
                         println("click!")
                         hide
                     }
@@ -68,7 +66,7 @@ fun main(args: Array<String>) {
             }
             row {
                 button("Another Hello!") {
-                    listenAction {
+                    onAction {
                         println("another click!")
                         hide
                     }
@@ -80,13 +78,13 @@ fun main(args: Array<String>) {
                     gridLayout {
                         row {
                             button("Oh Boy♂Next♂Door!") {
-                                listenAction {
+                                onAction {
                                     println("Ahh fuck you")
                                     hide
                                 }
                             }
                             button("change the boss of the gym!") {
-                                listenActionWithEvent { source, _, _, _ ->
+                                onActionWithEvent { source, _, _, _ ->
                                     println("Ahh FA♂Q $source")
                                     hide
                                     this@frame.hide

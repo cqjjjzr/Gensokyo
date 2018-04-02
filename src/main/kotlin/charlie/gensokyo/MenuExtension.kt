@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import javax.swing.JFrame
@@ -5,29 +8,29 @@ import javax.swing.JMenu
 import javax.swing.JMenuBar
 import javax.swing.JMenuItem
 
-fun JFrame.menuBar(jMenuBar: JMenuBar = JMenuBar(),
-                   block: JMenuBar.() -> Unit) {
+inline fun JFrame.menuBar(jMenuBar: JMenuBar = JMenuBar(),
+                          block: JMenuBar.() -> Unit) {
     jMenuBar.block()
     this.jMenuBar = jMenuBar
 }
 
-fun JMenuBar.subMenu(text: String,
-                     jMenu: JMenu = JMenu(text),
-                     block: JMenu.() -> Unit) {
+inline fun JMenuBar.subMenu(text: String,
+                            jMenu: JMenu = JMenu(text),
+                            block: JMenu.() -> Unit) {
     jMenu.block()
     add(jMenu)
 }
 
-fun JMenu.subMenu(text: String,
-                     jMenu: JMenu = JMenu(text),
-                     block: JMenu.() -> Unit) {
+inline fun JMenu.subMenu(text: String,
+                         jMenu: JMenu = JMenu(text),
+                         block: JMenu.() -> Unit) {
     jMenu.block()
     add(jMenu)
 }
 
-fun JMenu.item(text: String,
-               jMenuItem: JMenuItem = JMenuItem(text),
-               block: JMenuItem.() -> Unit) {
+inline fun JMenu.item(text: String,
+                      jMenuItem: JMenuItem = JMenuItem(text),
+                      block: JMenuItem.() -> Unit) {
     jMenuItem.block()
     add(jMenuItem)
 }

@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import java.awt.BorderLayout
@@ -40,7 +43,6 @@ class GridLayoutHelper: JComponent() {
         JLabel().apply {
             this@GridLayoutHelper.beforeAddingComponent(this)
             add(this)
-            this@GridLayoutHelper.afterAddingComponent(this)
         }
     }
 

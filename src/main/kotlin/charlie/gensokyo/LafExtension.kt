@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import javax.swing.LookAndFeel
@@ -9,4 +12,5 @@ var globalLookAndFeel: LookAndFeel get() = UIManager.getLookAndFeel()
 var globalLookAndFeelClassName: String get() = UIManager.getLookAndFeel().javaClass.name
     set(value) = UIManager.setLookAndFeel(value)
 
-fun systemLookAndFeel() = UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+val systemLookAndFeel get() = UIManager.getSystemLookAndFeelClassName()
+fun useSystemLookAndFeel() = UIManager.setLookAndFeel(systemLookAndFeel)

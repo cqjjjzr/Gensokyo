@@ -1,3 +1,6 @@
+@file:JvmName("Gensokyo")
+@file:JvmMultifileClass
+
 package charlie.gensokyo
 
 import java.awt.Component
@@ -25,11 +28,11 @@ class JFrameInternalMessageBox(private val type: Int,
     }
 }
 
-@JvmField val plainMessageBox = InternalMessageBox(PLAIN_MESSAGE)
-@JvmField val infoMessageBox = InternalMessageBox(INFORMATION_MESSAGE)
-@JvmField val warnMessageBox = InternalMessageBox(WARNING_MESSAGE)
-@JvmField val errorMessageBox = InternalMessageBox(ERROR_MESSAGE)
-@JvmField val questionMessageBox = InternalMessageBox(QUESTION_MESSAGE)
+val plainMessageBox get() = InternalMessageBox(PLAIN_MESSAGE)
+val infoMessageBox get() = InternalMessageBox(INFORMATION_MESSAGE)
+val warnMessageBox get() = InternalMessageBox(WARNING_MESSAGE)
+val errorMessageBox get() = InternalMessageBox(ERROR_MESSAGE)
+val questionMessageBox get() = InternalMessageBox(QUESTION_MESSAGE)
 
 val JFrame.plainMessageBox get() = JFrameInternalMessageBox(PLAIN_MESSAGE, this)
 val JFrame.infoMessageBox get() = JFrameInternalMessageBox(INFORMATION_MESSAGE, this)
@@ -60,11 +63,11 @@ class JFrameInternalInputBox(private val type: Int,
             = showInputDialog(parentComponent, message, title, type, icon, selectionValues, initialValue) as T
 }
 
-@JvmField val plainInputBox = InternalInputBox(PLAIN_MESSAGE)
-@JvmField val infoInputBox = InternalInputBox(INFORMATION_MESSAGE)
-@JvmField val warnInputBox = InternalInputBox(WARNING_MESSAGE)
-@JvmField val errorInputBox = InternalInputBox(ERROR_MESSAGE)
-@JvmField val questionInputBox = InternalInputBox(QUESTION_MESSAGE)
+val plainInputBox get() = InternalInputBox(PLAIN_MESSAGE)
+val infoInputBox get() = InternalInputBox(INFORMATION_MESSAGE)
+val warnInputBox get() = InternalInputBox(WARNING_MESSAGE)
+val errorInputBox get() = InternalInputBox(ERROR_MESSAGE)
+val questionInputBox get() = InternalInputBox(QUESTION_MESSAGE)
 
 val JFrame.plainInputBox get() = JFrameInternalInputBox(PLAIN_MESSAGE, this)
 val JFrame.infoInputBox get() = JFrameInternalInputBox(INFORMATION_MESSAGE, this)
@@ -119,9 +122,9 @@ class JFrameInternalConfirmBox(private val optionType: Int,
     }
 }
 
-@JvmField val yesNoCancelBox = InternalConfirmBox(YES_NO_CANCEL_OPTION)
-@JvmField val yesNoBox = InternalConfirmBox(YES_NO_OPTION)
-@JvmField val okCancelBox = InternalConfirmBox(OK_CANCEL_OPTION)
+val yesNoCancelBox get() = InternalConfirmBox(YES_NO_CANCEL_OPTION)
+val yesNoBox get() = InternalConfirmBox(YES_NO_OPTION)
+val okCancelBox get() = InternalConfirmBox(OK_CANCEL_OPTION)
 
 val JFrame.yesNoCancelBox get() = JFrameInternalConfirmBox(YES_NO_CANCEL_OPTION, this)
 val JFrame.yesNoBox get() = JFrameInternalConfirmBox(YES_NO_OPTION, this)

@@ -43,7 +43,7 @@ operator fun JComponent.contains(key: Any) = getClientProperty(key) != null
 operator fun JComponent.get(key: Any) = getClientProperty(key) ?: ""
 operator fun JComponent.set(key: Any, value: Any) = putClientProperty(key, value)
 
-const val gensokyoId = "gensokyo.compID"
+const val gensokyoId = "Gensokyo.CompID"
 
 fun JComponent.assignID(ID: String) {
     this[gensokyoId] = ID

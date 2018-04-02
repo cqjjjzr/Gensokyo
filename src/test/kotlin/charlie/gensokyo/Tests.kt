@@ -27,12 +27,10 @@ fun main(args: Array<String>) {
                                         .openConnection()
                                         .getInputStream()
                                         .reader()
-                                        .apply {
-                                            forEachLine {
-                                                uiThreadAsync {
-                                                    (this@frame.componentFromID("contentTextArea") as JTextArea)
-                                                            .append("$it\n")
-                                                }
+                                        .forEachLine {
+                                            uiThreadAsync {
+                                                (this@frame.componentFromID("contentTextArea") as JTextArea)
+                                                        .append("$it\n")
                                             }
                                         }
                                 uiThread {

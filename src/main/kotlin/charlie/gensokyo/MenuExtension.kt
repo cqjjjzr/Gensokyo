@@ -3,36 +3,33 @@
 
 package charlie.gensokyo
 
-import javax.swing.JFrame
-import javax.swing.JMenu
-import javax.swing.JMenuBar
-import javax.swing.JMenuItem
+import javax.swing.*
 
-inline fun JFrame.menuBar(jMenuBar: JMenuBar = JMenuBar(),
-                          block: JMenuBar.() -> Unit) {
-    jMenuBar.block()
-    this.jMenuBar = jMenuBar
+inline fun JFrame.menuBar(menuBar: JMenuBar = JMenuBar(), block: JMenuBar.() -> Unit): JMenuBar {
+    menuBar.block()
+    jMenuBar = menuBar
+    return menuBar
 }
 
-inline fun JMenuBar.subMenu(text: String,
-                            jMenu: JMenu = JMenu(text),
-                            block: JMenu.() -> Unit) {
-    jMenu.block()
-    add(jMenu)
+inline fun JMenuBar.subMenu(text: String, block: JMenu.() -> Unit) = subMenu(JMenu(text), block)
+inline fun JMenuBar.subMenu(menu: JMenu, block: JMenu.() -> Unit): JMenu {
+    menu.block()
+    add(menu)
+    return menu
 }
 
-inline fun JMenu.subMenu(text: String,
-                         jMenu: JMenu = JMenu(text),
-                         block: JMenu.() -> Unit) {
-    jMenu.block()
-    add(jMenu)
+inline fun JMenu.subMenu(text: String, block: JMenu.() -> Unit) = subMenu(JMenu(text), block)
+inline fun JMenu.subMenu(menu: JMenu, block: JMenu.() -> Unit): JMenu {
+    menu.block()
+    add(menu)
+    return menu
 }
 
-inline fun JMenu.item(text: String,
-                      jMenuItem: JMenuItem = JMenuItem(text),
-                      block: JMenuItem.() -> Unit) {
-    jMenuItem.block()
-    add(jMenuItem)
+inline fun JMenu.item(text: String, block: JMenuItem.() -> Unit) = item(JMenuItem(text), block)
+inline fun JMenu.item(menuItem: JMenuItem, block: JMenuItem.() -> Unit): JMenuItem {
+    menuItem.block()
+    add(menuItem)
+    return menuItem
 }
 
-val JMenu.separator: Unit get() = addSeparator()
+val JMenu.separator get() = JPopupMenu.Separator().also { popupMenu.add(it) }

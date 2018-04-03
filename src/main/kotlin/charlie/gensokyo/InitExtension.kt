@@ -7,7 +7,7 @@ import java.awt.Container
 import javax.swing.*
 
 inline fun frame(title: String = "",
-                 show: Boolean = false,
+                 show: Boolean = true,
                  jFrame: JFrame = JFrame(),
                  init: JFrame.() -> Unit) = jFrame.apply {
     this.title = title

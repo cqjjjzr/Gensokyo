@@ -17,7 +17,6 @@ fun main(args: Array<String>) {
                         println("BOOM!")
                     }
                 }
-                separator
                 subMenu("Recent") {
                     item("nanimo arimasen") {
                         onAction {

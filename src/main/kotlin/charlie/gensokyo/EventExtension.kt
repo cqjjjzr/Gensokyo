@@ -11,7 +11,7 @@ fun AbstractButton.onAction(block: (ActionEvent) -> Unit) {
     addActionListener(block)
 }
 
-inline fun AbstractButton.onActionWithEvent(crossinline block: (source: Any, id: Int, timestamp: Long, modifiers: ModifierKeys) -> Unit) {
+inline fun AbstractButton.onActionWithEvent(crossinline block: (Any?, Int, Long, ModifierKeys) -> Unit) {
     addActionListener {
         block(it.source, it.id, it.`when`, ModifierKeys(it.modifiers))
     }

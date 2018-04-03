@@ -9,6 +9,7 @@ import javax.swing.Icon
 import javax.swing.JFrame
 import javax.swing.JOptionPane.*
 import javax.swing.UIManager
+import kotlin.collections.ArrayList
 
 class InternalMessageBox(private val type: Int) {
     operator fun invoke(message: String,
@@ -24,7 +25,7 @@ class JFrameInternalMessageBox(private val type: Int,
     operator fun invoke(message: String,
                         title: String = UIManager.getString("OptionPane.messageDialogTitle"),
                         icon: Icon? = null) {
-        showMessageDialog(null, message, title, type, icon)
+        showMessageDialog(parentComponent, message, title, type, icon)
     }
 }
 
@@ -56,7 +57,7 @@ class JFrameInternalInputBox(private val type: Int,
                              private val parentComponent: Component?) {
     operator fun <T> invoke(message: String,
                             title: String = UIManager.getString("OptionPane.inputDialogTitle",
-                                    if (parentComponent == null) Locale.getDefault() else parentComponent.locale),
+                                    parentComponent?.locale ?: Locale.getDefault()),
                             initialValue: T? = null,
                             selectionValues: Array<T>? = null,
                             icon: Icon? = null): T
@@ -76,11 +77,11 @@ val JFrame.errorInputBox get() = JFrameInternalInputBox(ERROR_MESSAGE, this)
 val JFrame.questionInputBox get() = JFrameInternalInputBox(QUESTION_MESSAGE, this)
 
 class ConfirmBoxResult(private val result: Int) {
-    private val okButton = LinkedList<() -> Unit>()
-    private val cancelButton = LinkedList<() -> Unit>()
-    private val yesButton = LinkedList<() -> Unit>()
-    private val noButton = LinkedList<() -> Unit>()
-    private val closed = LinkedList<() -> Unit>()
+    private val okButton = ArrayList<() -> Unit>()
+    private val cancelButton = ArrayList<() -> Unit>()
+    private val yesButton = ArrayList<() -> Unit>()
+    private val noButton = ArrayList<() -> Unit>()
+    private val closed = ArrayList<() -> Unit>()
 
     fun okButton(block: () -> Unit) = okButton.add(block)
     fun cancelButton(block: () -> Unit) = cancelButton.add(block)
@@ -91,7 +92,8 @@ class ConfirmBoxResult(private val result: Int) {
     internal fun dispatch() {
         when (result) {
             OK_OPTION -> {
-                okButton.forEach { it() }; yesButton.forEach { it() }
+                okButton.forEach { it() }
+                yesButton.forEach { it() }
             }
             CANCEL_OPTION -> cancelButton.forEach { it() }
             NO_OPTION -> noButton.forEach { it() }

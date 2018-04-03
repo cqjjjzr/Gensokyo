@@ -13,4 +13,7 @@ var globalLookAndFeelClassName: String get() = UIManager.getLookAndFeel().javaCl
     set(value) = UIManager.setLookAndFeel(value)
 
 val systemLookAndFeel get() = UIManager.getSystemLookAndFeelClassName()
+
+val uglyLookAndFeelClassName get() = UIManager.getCrossPlatformLookAndFeelClassName()
+
 fun useSystemLookAndFeel() = UIManager.setLookAndFeel(systemLookAndFeel)

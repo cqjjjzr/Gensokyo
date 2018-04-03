@@ -13,12 +13,12 @@ fun doAsync(threadName: String = "AsyncThread-" + System.currentTimeMillis(),
     thread(name = threadName, isDaemon = isDaemon, block = block)
 }
 
-inline fun uiThread(crossinline block: () -> Unit) {
-    SwingUtilities.invokeAndWait { block() }
+fun uiThread(block: () -> Unit) {
+    SwingUtilities.invokeAndWait(block)
 }
 
-inline fun uiThreadAsync(crossinline block: () -> Unit) {
-    SwingUtilities.invokeLater { block() }
+fun uiThreadAsync(block: () -> Unit) {
+    SwingUtilities.invokeLater(block)
 }
 
 inline fun <T, V> doAsyncWorker(crossinline block: () -> T,

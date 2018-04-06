@@ -1,3 +1,6 @@
+group 'com.github.cqjjjzr'
+version '1.1'
+
 buildscript {
     ext.kotlin_version = '1.2.31'
 
@@ -10,9 +13,6 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
-
-group 'com.github.cqjjjzr'
-version '1.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

@@ -5,9 +5,9 @@ package charlie.gensokyo
 
 import javax.swing.*
 
-inline fun JFrame.menuBar(menuBar: JMenuBar = JMenuBar(), block: JMenuBar.() -> Unit): JMenuBar {
+inline fun RootPaneContainer.menuBar(menuBar: JMenuBar = JMenuBar(), block: JMenuBar.() -> Unit): JMenuBar {
     menuBar.block()
-    jMenuBar = menuBar
+    rootPane.jMenuBar = menuBar
     return menuBar
 }
 

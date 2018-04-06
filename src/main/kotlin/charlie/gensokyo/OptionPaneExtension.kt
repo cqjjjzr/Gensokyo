@@ -6,7 +6,6 @@ package charlie.gensokyo
 import java.awt.Component
 import java.util.*
 import javax.swing.Icon
-import javax.swing.JFrame
 import javax.swing.JOptionPane.*
 import javax.swing.UIManager
 import kotlin.collections.ArrayList
@@ -35,11 +34,11 @@ val warnMessageBox get() = InternalMessageBox(WARNING_MESSAGE)
 val errorMessageBox get() = InternalMessageBox(ERROR_MESSAGE)
 val questionMessageBox get() = InternalMessageBox(QUESTION_MESSAGE)
 
-val JFrame.plainMessageBox get() = JFrameInternalMessageBox(PLAIN_MESSAGE, this)
-val JFrame.infoMessageBox get() = JFrameInternalMessageBox(INFORMATION_MESSAGE, this)
-val JFrame.warnMessageBox get() = JFrameInternalMessageBox(WARNING_MESSAGE, this)
-val JFrame.errorMessageBox get() = JFrameInternalMessageBox(ERROR_MESSAGE, this)
-val JFrame.questionMessageBox get() = JFrameInternalMessageBox(QUESTION_MESSAGE, this)
+val Component.plainMessageBox get() = JFrameInternalMessageBox(PLAIN_MESSAGE, this)
+val Component.infoMessageBox get() = JFrameInternalMessageBox(INFORMATION_MESSAGE, this)
+val Component.warnMessageBox get() = JFrameInternalMessageBox(WARNING_MESSAGE, this)
+val Component.errorMessageBox get() = JFrameInternalMessageBox(ERROR_MESSAGE, this)
+val Component.questionMessageBox get() = JFrameInternalMessageBox(QUESTION_MESSAGE, this)
 
 @Suppress("UNCHECKED_CAST")
 class InternalInputBox(private val type: Int) {
@@ -48,8 +47,7 @@ class InternalInputBox(private val type: Int) {
                             initialValue: T? = null,
                             selectionValues: Array<T>? = null,
                             icon: Icon? = null,
-                            parentComponent: Component? = null): T
-            = showInputDialog(parentComponent, message, title, type, icon, selectionValues, initialValue) as T
+                            parentComponent: Component? = null): T = showInputDialog(parentComponent, message, title, type, icon, selectionValues, initialValue) as T
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -60,8 +58,7 @@ class JFrameInternalInputBox(private val type: Int,
                                     parentComponent?.locale ?: Locale.getDefault()),
                             initialValue: T? = null,
                             selectionValues: Array<T>? = null,
-                            icon: Icon? = null): T
-            = showInputDialog(parentComponent, message, title, type, icon, selectionValues, initialValue) as T
+                            icon: Icon? = null): T = showInputDialog(parentComponent, message, title, type, icon, selectionValues, initialValue) as T
 }
 
 val plainInputBox get() = InternalInputBox(PLAIN_MESSAGE)
@@ -70,11 +67,11 @@ val warnInputBox get() = InternalInputBox(WARNING_MESSAGE)
 val errorInputBox get() = InternalInputBox(ERROR_MESSAGE)
 val questionInputBox get() = InternalInputBox(QUESTION_MESSAGE)
 
-val JFrame.plainInputBox get() = JFrameInternalInputBox(PLAIN_MESSAGE, this)
-val JFrame.infoInputBox get() = JFrameInternalInputBox(INFORMATION_MESSAGE, this)
-val JFrame.warnInputBox get() = JFrameInternalInputBox(WARNING_MESSAGE, this)
-val JFrame.errorInputBox get() = JFrameInternalInputBox(ERROR_MESSAGE, this)
-val JFrame.questionInputBox get() = JFrameInternalInputBox(QUESTION_MESSAGE, this)
+val Component.plainInputBox get() = JFrameInternalInputBox(PLAIN_MESSAGE, this)
+val Component.infoInputBox get() = JFrameInternalInputBox(INFORMATION_MESSAGE, this)
+val Component.warnInputBox get() = JFrameInternalInputBox(WARNING_MESSAGE, this)
+val Component.errorInputBox get() = JFrameInternalInputBox(ERROR_MESSAGE, this)
+val Component.questionInputBox get() = JFrameInternalInputBox(QUESTION_MESSAGE, this)
 
 class ConfirmBoxResult(private val result: Int) {
     private val okButton = ArrayList<() -> Unit>()
@@ -128,6 +125,6 @@ val yesNoCancelBox get() = InternalConfirmBox(YES_NO_CANCEL_OPTION)
 val yesNoBox get() = InternalConfirmBox(YES_NO_OPTION)
 val okCancelBox get() = InternalConfirmBox(OK_CANCEL_OPTION)
 
-val JFrame.yesNoCancelBox get() = JFrameInternalConfirmBox(YES_NO_CANCEL_OPTION, this)
-val JFrame.yesNoBox get() = JFrameInternalConfirmBox(YES_NO_OPTION, this)
-val JFrame.okCancelBox get() = JFrameInternalConfirmBox(OK_CANCEL_OPTION, this)
+val Component.yesNoCancelBox get() = JFrameInternalConfirmBox(YES_NO_CANCEL_OPTION, this)
+val Component.yesNoBox get() = JFrameInternalConfirmBox(YES_NO_OPTION, this)
+val Component.okCancelBox get() = JFrameInternalConfirmBox(OK_CANCEL_OPTION, this)

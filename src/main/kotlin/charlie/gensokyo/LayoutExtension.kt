@@ -8,14 +8,17 @@ import java.awt.Container
 import java.awt.GridLayout
 import java.awt.IllegalComponentStateException
 import javax.swing.JComponent
+import javax.swing.JDialog
 import javax.swing.JFrame
 import javax.swing.JLabel
 
 inline val Container.abstractLayout: Unit get() { layout = null }
 inline val JFrame.abstractLayout: Unit get() = contentPane.abstractLayout
+inline val JDialog.abstractLayout: Unit get() = contentPane.abstractLayout
 
 inline val Container.borderLayout: Unit get() { layout = BorderLayout() }
 inline val JFrame.borderLayout: Unit get() = contentPane.abstractLayout
+inline val JDialog.borderLayout: Unit get() = contentPane.abstractLayout
 
 inline fun Container.gridLayout(block: GridLayoutHelper.() -> Unit) {
     layout = BorderLayout()
@@ -24,6 +27,7 @@ inline fun Container.gridLayout(block: GridLayoutHelper.() -> Unit) {
 }
 
 inline fun JFrame.gridLayout(block: GridLayoutHelper.() -> Unit) = contentPane.gridLayout(block)
+inline fun JDialog.gridLayout(block: GridLayoutHelper.() -> Unit) = contentPane.gridLayout(block)
 
 class GridLayoutHelper: JComponent() {
     private var rowIndex = -1

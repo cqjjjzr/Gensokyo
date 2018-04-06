@@ -4,6 +4,7 @@
 package charlie.gensokyo
 
 import java.awt.Container
+import java.awt.Window
 import javax.swing.*
 
 inline fun frame(title: String = "",
@@ -11,7 +12,20 @@ inline fun frame(title: String = "",
                  jFrame: JFrame = JFrame(),
                  init: JFrame.() -> Unit) = jFrame.apply {
     this.title = title
+    exitOnClose
     init()
+    if (show) isVisible = true
+}
+
+inline fun dialog(title: String = "",
+                  show: Boolean = true,
+                  owner: Window? = null,
+                  jDialog: JDialog = JDialog(owner),
+                  init: JDialog.() -> Unit) = jDialog.apply {
+    this.title = title
+    doNothingOnClose
+    init()
+    pack()
     if (show) isVisible = true
 }
 
